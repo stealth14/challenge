@@ -1,10 +1,26 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
+    <View>
+      <View style={styles.menu}>
+        <Text>menu</Text>
+      </View>
+      <View style={styles.mapContainer}>
+        <Text>map</Text>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  menu: {
+    backgroundColor: "red",
+    height: "30%",
+  },
+  mapContainer: {
+    backgroundColor: "cyan",
+    height: "70%",
+  },
+});
