@@ -1,26 +1,26 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import CustomMap from "./CustomMap";
 
 export default function HomeScreen() {
   return (
-    <View>
-      <View style={styles.menu}>
-        <Text>menu</Text>
-      </View>
-      <View style={styles.mapContainer}>
-        <Text>map</Text>
+    <View style={styles.container}>
+      <View style={styles.menu}></View>
+      <View style={styles.map}>
+        <CustomMap />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  menu: {
-    backgroundColor: "red",
-    height: "15%",
+  container: {
+    flex: 1,
   },
-  mapContainer: {
-    backgroundColor: "cyan",
-    height: "85%",
+  menu: {
+    flex: 1,
+  },
+  map: {
+    flex: 5,
   },
 });

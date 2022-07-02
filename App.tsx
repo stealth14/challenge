@@ -11,8 +11,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Tiendas y estaciones" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Tiendas y estaciones" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
