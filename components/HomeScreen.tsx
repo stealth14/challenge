@@ -17,10 +17,10 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: "red",
-    height: "30%",
+    height: "15%",
   },
   mapContainer: {
     backgroundColor: "cyan",
-    height: "70%",
+    height: "85%",
   },
 });
