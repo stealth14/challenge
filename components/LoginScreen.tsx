@@ -6,12 +6,12 @@ export default function LoginScreen() {
   const navigation = React.useContext(NavigationContext);
 
   const onSubmit = () => {
-    navigation.navigate("Home");
+    navigation.navigate("Tiendas y estaciones");
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Home" onPress={onSubmit} />
+      <Button title="Login" onPress={onSubmit} />
     </View>
   );
 }
