@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import Map from "../components/Map";
+import CustomMap from "../components/CustomMap";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.menu}></View>
       <View style={styles.map}>
-        <Map />
+        <CustomMap />
       </View>
     </View>
   );
