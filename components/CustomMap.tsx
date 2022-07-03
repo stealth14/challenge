@@ -5,7 +5,6 @@ import useMap from "../hooks/useMap";
 import * as Linking from "expo-linking";
 import Store from "../lib/Store";
 import CustomMarker from "./CustomMarker";
-import { BottomSheet } from "react-native-btr";
 
 import {
   useForegroundPermissions,
@@ -121,7 +120,6 @@ export default function Map() {
           </View>
         )}
       </View>
-
     </View>
   );
 }
