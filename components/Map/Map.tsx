@@ -22,7 +22,10 @@ export default function Map() {
     if (response === null) return;
 
     // prevents the component from abusing the permissions API
-    if (response.status === "denied" || response.status === "undetermined") {
+    if (
+      response.status === PermissionStatus.DENIED ||
+      response.status === PermissionStatus.UNDETERMINED
+    ) {
       if (response.canAskAgain) {
         requestPermission();
       }
@@ -33,14 +36,13 @@ export default function Map() {
   useEffect(() => {
     if (response === null) return;
 
-    if (response.status === "granted") {
+    if (response.status === PermissionStatus.GRANTED) {
       (async () => {
         let location = await getCurrentPositionAsync({});
         setLocation(location);
       })();
     }
   }, [response]);
-
 
   if (response === null) {
     return (
@@ -69,7 +71,7 @@ export default function Map() {
           />
         )}
         {response.status === PermissionStatus.GRANTED && (
-          <View style={{ width: "100%", height: "100%" }}>
+          <View style={styles.mapWrapper}>
             {location && (
               <MapView
                 loadingEnabled
@@ -93,6 +95,7 @@ export default function Map() {
 }
 
 const styles = StyleSheet.create({
+  mapWrapper: { width: "100%", height: "100%" },
   container: {
     flex: 1,
     alignItems: "center",
