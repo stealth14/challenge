@@ -4,6 +4,8 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import useMap from "../hooks/useMap";
 import * as Linking from "expo-linking";
 import Store from "../lib/Store";
+import CustomMarker from "./CustomMarker";
+import { getRandomLocation } from "../lib/utilities";
 
 import {
   useForegroundPermissions,
@@ -17,6 +19,8 @@ export default function Map() {
   const [response, requestPermission] = useForegroundPermissions();
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [stores, setStores] = useState<Store[]>(new Array<Store>());
+
+  const [currentStore, setCurrentStore] = useState<Store | null>();
 
   /** Sync device location permissions */
   useEffect(() => {
@@ -84,7 +88,6 @@ export default function Map() {
           <View style={styles.mapWrapper}>
             {location && (
               <MapView
-                loadingEnabled
                 ref={mapRef}
                 provider={PROVIDER_GOOGLE}
                 style={styles.mapStyle}
@@ -95,9 +98,30 @@ export default function Map() {
                   latitudeDelta: 0.003,
                   longitudeDelta: 0.003,
                 }}
+                zoomEnabled={true}
+                zoomTapEnabled={false}
+                rotateEnabled={false}
               >
+                {stores.map((store, index) => {
+                  const { latitude, longitude } = location.coords;
 
-                
+                  const [nLat, nLng] = getRandomLocation(
+                    latitude,
+                    longitude,
+                    100
+                  );
+
+                  return (
+                    <CustomMarker
+                      key={index}
+                      handlePress={() => {
+                        setCurrentStore(store);
+                      }}
+                      latitude={nLat}
+                      longitude={nLng}
+                    />
+                  );
+                })}
               </MapView>
             )}
           </View>
