@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, Image } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import useMap from "./useMap";
+import useMap from "../hooks/useMap";
 import * as Linking from "expo-linking";
+import Store from "../lib/Store";
 
 import {
   useForegroundPermissions,
@@ -15,6 +16,7 @@ export default function Map() {
   const { mapRef, handleNavigateToPoint } = useMap();
   const [response, requestPermission] = useForegroundPermissions();
   const [location, setLocation] = useState<LocationObject | null>(null);
+  const [stores, setStores] = useState<Store[]>(new Array<Store>());
 
   /** Sync device location permissions */
   useEffect(() => {
@@ -43,6 +45,14 @@ export default function Map() {
       })();
     }
   }, [response]);
+
+  /** Sync markers of stores */
+  useEffect(() => {
+    (async () => {
+      const stores = await Store.get();
+      setStores(stores);
+    })();
+  }, []);
 
   if (response === null) {
     return (
@@ -85,7 +95,10 @@ export default function Map() {
                   latitudeDelta: 0.003,
                   longitudeDelta: 0.003,
                 }}
-              ></MapView>
+              >
+
+                
+              </MapView>
             )}
           </View>
         )}
