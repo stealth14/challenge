@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import CustomMap from "./CustomMap";
+import { View, StyleSheet } from "react-native";
+import CustomMap from "./Map/Map";
 
 export default function HomeScreen() {
   return (
