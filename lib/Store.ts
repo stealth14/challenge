@@ -1,3 +1,7 @@
+import { getRandomLocation } from "./utilities";
+
+import { LocationObject } from "expo-location";
+
 const stores = [
   {
     id: "1",
@@ -40,7 +44,6 @@ const stores = [
     direction: "Carrer de Pujades, 104",
   },
 ];
-
 export default class Store {
   id: string;
   latitude: number;
@@ -65,7 +68,15 @@ export default class Store {
     this.direction = direction;
   }
 
-  static async get() {
-    return stores;
+  static get(location: LocationObject): Store[] {
+    const storesNearby = stores.map((store) => {
+      const { latitude, longitude } = location.coords;
+
+      const [nLat, nLng] = getRandomLocation(latitude, longitude, 100);
+
+      return { ...store, latitude: nLat, longitude: nLng } as Store;
+    });
+
+    return storesNearby;
   }
 }

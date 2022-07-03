@@ -5,7 +5,6 @@ import useMap from "../hooks/useMap";
 import * as Linking from "expo-linking";
 import Store from "../lib/Store";
 import CustomMarker from "./CustomMarker";
-import { getRandomLocation } from "../lib/utilities";
 
 import {
   useForegroundPermissions,
@@ -20,23 +19,15 @@ export default function Map() {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [stores, setStores] = useState<Store[]>(new Array<Store>());
 
-  const [currentStore, setCurrentStore] = useState<Store | null>();
+  const [currentStore, setCurrentStore] = useState<Store | null>(null);
 
-  /** Sync device location permissions */
+  /** Location permissions try */
   useEffect(() => {
-    // 'response' will allways initialize whith null value, even if the location permission is granted
-    if (response === null) return;
-
-    // prevents the component from abusing the permissions API
-    if (
-      response.status === PermissionStatus.DENIED ||
-      response.status === PermissionStatus.UNDETERMINED
-    ) {
-      if (response.canAskAgain) {
-        requestPermission();
-      }
+    if (!response) return;
+    if (response.status === PermissionStatus.UNDETERMINED) {
+      requestPermission();
     }
-  }, []);
+  }, [response]);
 
   /** Sync location coordinates */
   useEffect(() => {
@@ -53,10 +44,11 @@ export default function Map() {
   /** Sync markers of stores */
   useEffect(() => {
     (async () => {
-      const stores = await Store.get();
+      if (!location) return;
+      const stores = Store.get(location);
       setStores(stores);
     })();
-  }, []);
+  }, [location]);
 
   if (response === null) {
     return (
@@ -70,7 +62,16 @@ export default function Map() {
     <View style={styles.container}>
       <View style={styles.content}>
         {response.status === PermissionStatus.UNDETERMINED && (
-          <Text>...Solicitando acceso</Text>
+          <PremisionsPrompt
+            handleGrant={() => {
+              if (response.canAskAgain) {
+                requestPermission();
+              } else {
+                Linking.openSettings();
+              }
+            }}
+            canAskAgain={response.canAskAgain}
+          />
         )}
         {response.status === PermissionStatus.DENIED && (
           <PremisionsPrompt
@@ -103,22 +104,14 @@ export default function Map() {
                 rotateEnabled={false}
               >
                 {stores.map((store, index) => {
-                  const { latitude, longitude } = location.coords;
-
-                  const [nLat, nLng] = getRandomLocation(
-                    latitude,
-                    longitude,
-                    100
-                  );
-
                   return (
                     <CustomMarker
                       key={index}
                       handlePress={() => {
                         setCurrentStore(store);
                       }}
-                      latitude={nLat}
-                      longitude={nLng}
+                      latitude={store.latitude}
+                      longitude={store.longitude}
                     />
                   );
                 })}
@@ -166,7 +159,7 @@ function PremisionsPrompt(props: PremisionsPrompt) {
       {canAskAgain ? (
         <View>
           <Text style={styles.promptText}>
-            {"Para ver las tiendas debes habilitar el acceso a tu ubicación"}
+            {"Para ver tiendas debes habilitar el acceso a tu ubicación"}
           </Text>
           <Button title="Dar permiso" onPress={handleGrant} />
         </View>
@@ -174,7 +167,7 @@ function PremisionsPrompt(props: PremisionsPrompt) {
         <View>
           <Text style={styles.promptText}>
             {
-              "Para ver las tiendas ve a configuraciones y habilita el acceso a tu ubicación"
+              "Para ver tiendas ve a configuraciones y habilita el acceso a tu ubicación"
             }
           </Text>
           <Button title="Abrir Configuraciones" onPress={handleGrant} />
