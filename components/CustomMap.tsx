@@ -13,13 +13,16 @@ import {
   LocationObject,
 } from "expo-location";
 
-export default function Map() {
+interface CustomMapProps {
+  handleStore: (store: Store) => void;
+}
+
+export default function Map(props: CustomMapProps) {
   const { mapRef, handleNavigateToPoint } = useMap();
+  const { handleStore } = props;
   const [response, requestPermission] = useForegroundPermissions();
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [stores, setStores] = useState<Store[]>(new Array<Store>());
-
-  const [currentStore, setCurrentStore] = useState<Store | null>(null);
 
   /** Location permissions try */
   useEffect(() => {
@@ -49,6 +52,9 @@ export default function Map() {
       setStores(stores);
     })();
   }, [location]);
+
+  /** Sync markers of stores */
+  useEffect(() => {}, [location]);
 
   if (response === null) {
     return (
@@ -108,7 +114,7 @@ export default function Map() {
                     <CustomMarker
                       key={index}
                       handlePress={() => {
-                        setCurrentStore(store);
+                        handleStore(store);
                       }}
                       latitude={store.latitude}
                       longitude={store.longitude}

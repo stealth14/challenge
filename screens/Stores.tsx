@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView, Text, Button } from "react-native";
 import CustomMap from "../components/CustomMap";
 import { BottomSheet } from "react-native-btr";
+import Store from "../lib/Store";
 
 export default function HomeScreen() {
-  const [visible, setVisible] = useState(false);
+  const [store, setStore] = useState<Store | null>(null);
 
   const toggle = () => {
-    setVisible(!visible);
+    setStore(null);
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.menu}></View>
       <View style={styles.map}>
-        <CustomMap />
+        <CustomMap
+          handleStore={(currentStore: Store) => {
+            setStore(currentStore);
+          }}
+        />
       </View>
 
       <BottomSheet
-        visible={visible}
+        visible={!!store}
         onBackButtonPress={toggle}
         onBackdropPress={toggle}
       >
