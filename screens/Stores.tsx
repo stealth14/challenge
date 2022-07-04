@@ -16,7 +16,6 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.menu}></View>
       <View style={styles.map}>
         <CustomMap
           handleStore={(currentStore: Store) => {
