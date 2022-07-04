@@ -27,7 +27,7 @@ export default function StoreSheet(props: StoreSheetProps) {
             <Button title="Mostrar más" onPress={handleWatchMore} />
           </View>
           <View style={styles.attributes}>
-            <Attribute icon={"location-arrow"} label={direction} />
+            <Attribute icon={"map-marker-alt"} label={direction} />
             <Attribute icon={"clock"} label={schedule} />
           </View>
         </View>

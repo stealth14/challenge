@@ -1,6 +1,7 @@
 import React from "react";
 import { Marker } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 interface CustomMarkerProps {
   latitude: number;
@@ -19,7 +20,9 @@ export default function CustomMarker(props: CustomMarkerProps) {
       onPress={handlePress}
     >
       <View style={styles.markerWrapper}>
-        <View style={styles.item} />
+        <View style={styles.item}>
+          <FontAwesome5 name={"map-marker"} size={40} color="red" />
+        </View>
       </View>
     </Marker>
   );
@@ -41,8 +44,5 @@ const styles = StyleSheet.create({
   item: {
     height: 40,
     width: 40,
-    borderColor: "red",
-    borderWidth: 2,
-    backgroundColor: "red",
   },
 });
