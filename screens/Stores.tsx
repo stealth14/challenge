@@ -41,7 +41,8 @@ export default function HomeScreen() {
             >
               <StoreSheet
                 handleWatchMore={() => {
-                  navigation.navigate("Tienda");
+                  navigation.navigate("Tienda", { ...store });
+                  setStore(null);
                 }}
                 store={store}
               />

@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function Store() {
+function Store({ route, navigation }) {
+  const { name, distance } = route.params;
   return (
     <View>
-      <Text>Store</Text>
+      <Text>{name}</Text>
     </View>
   );
 }
