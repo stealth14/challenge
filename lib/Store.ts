@@ -12,6 +12,11 @@ const stores = [
     direction: "Carrer de Pujades, 100",
     distance: 3,
     schedule: "24 horas",
+    services: [
+      { name: "Cajero automático", icon: "laptop" },
+      { name: "Cajero automático", icon: "gas-pump" },
+      { name: "Cajero automático", icon: "hat-cowboy-side" },
+    ],
   },
   {
     id: "2",
@@ -22,6 +27,11 @@ const stores = [
     direction: "Carrer de Pujades, 101",
     distance: 3,
     schedule: "24 horas",
+    services: [
+      { name: "Cajero automático", icon: "laptop" },
+      { name: "Cajero automático", icon: "gas-pump" },
+      { name: "Cajero automático", icon: "hat-cowboy-side" },
+    ],
   },
   {
     id: "3",
@@ -32,6 +42,11 @@ const stores = [
     direction: "Carrer de Pujades, 102",
     distance: 3,
     schedule: "24 horas",
+    services: [
+      { name: "Cajero automático", icon: "laptop" },
+      { name: "Cajero automático", icon: "gas-pump" },
+      { name: "Cajero automático", icon: "hat-cowboy-side" },
+    ],
   },
   {
     id: "4",
@@ -41,6 +56,11 @@ const stores = [
     name: "Basecamp",
     direction: "Carrer de Pujades, 103",
     schedule: "24 horas",
+    services: [
+      { name: "Cajero automático", icon: "laptop" },
+      { name: "Cajero automático", icon: "gas-pump" },
+      { name: "Cajero automático", icon: "hat-cowboy-side" },
+    ],
   },
   {
     id: "5",
@@ -51,6 +71,11 @@ const stores = [
     direction: "Carrer de Pujades, 104",
     distance: 3,
     schedule: "24 horas",
+    services: [
+      { name: "Cajero automático", icon: "laptop" },
+      { name: "Cajero automático", icon: "gas-pump" },
+      { name: "Cajero automático", icon: "hat-cowboy-side" },
+    ],
   },
 ];
 export default class Store {
@@ -62,6 +87,7 @@ export default class Store {
   direction: string;
   distance: number;
   schedule: string;
+  services: any[];
 
   constructor(
     id: string,
@@ -71,7 +97,8 @@ export default class Store {
     name: string,
     direction: string,
     distance: number,
-    schedule: string
+    schedule: string,
+    services: any[]
   ) {
     this.id = id;
     this.latitude = latitude;
@@ -81,6 +108,7 @@ export default class Store {
     this.direction = direction;
     this.distance = distance;
     this.schedule = schedule;
+    this.services = services;
   }
 
   static get(location: LocationObject): Store[] {

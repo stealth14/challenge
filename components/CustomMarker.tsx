@@ -21,7 +21,7 @@ export default function CustomMarker(props: CustomMarkerProps) {
     >
       <View style={styles.markerWrapper}>
         <View style={styles.item}>
-          <FontAwesome5 name={"map-marker"} size={40} color="red" />
+          <FontAwesome5 name={"map-marker-alt"} size={40} color="red" />
         </View>
       </View>
     </Marker>

@@ -6,7 +6,7 @@ import Item from "../components/Item";
 
 interface StoreSheetProps {
   store: Store;
-  handleWatchMore: () => void;
+  handleWatchMore?: () => void;
 }
 
 export default function StoreSheet(props: StoreSheetProps) {
@@ -24,7 +24,9 @@ export default function StoreSheet(props: StoreSheetProps) {
               style={styles.logo}
               source={require("../assets/company.png")}
             />
-            <Button title="Mostrar más" onPress={handleWatchMore} />
+            {handleWatchMore && (
+              <Button title="Mostrar más" onPress={handleWatchMore} />
+            )}
           </View>
           <View style={styles.attributes}>
             <Attribute icon={"map-marker-alt"} label={direction} />
