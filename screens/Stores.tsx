@@ -3,9 +3,12 @@ import { View, StyleSheet, SafeAreaView, Text, Button } from "react-native";
 import CustomMap from "../components/CustomMap";
 import { BottomSheet } from "react-native-btr";
 import Store from "../lib/Store";
+import StoreSheet from "../components/StoreSheet";
+import { NavigationContext } from "@react-navigation/native";
 
 export default function HomeScreen() {
   const [store, setStore] = useState<Store | null>(null);
+  const navigation = React.useContext(NavigationContext);
 
   const toggle = () => {
     setStore(null);
@@ -28,24 +31,23 @@ export default function HomeScreen() {
         onBackdropPress={toggle}
       >
         <View style={styles.bottomNavigationView}>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text
+          {store && (
+            <View
               style={{
-                textAlign: "center",
-                padding: 20,
-                fontSize: 20,
+                flex: 1,
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
             >
-              Share Using
-            </Text>
-            <View style={{ flex: 1, flexDirection: "row" }}></View>
-          </View>
+              <StoreSheet
+                handleWatchMore={() => {
+                  navigation.navigate("Tienda");
+                }}
+                store={store}
+              />
+              <View style={{ flex: 1, flexDirection: "row" }}></View>
+            </View>
+          )}
         </View>
       </BottomSheet>
     </SafeAreaView>
@@ -58,17 +60,13 @@ const styles = StyleSheet.create({
   },
   menu: {
     flex: 1,
-    backgroundColor: "red",
   },
   map: {
     flex: 5,
-    backgroundColor: "green",
   },
   bottomNavigationView: {
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     width: "100%",
     height: 250,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });

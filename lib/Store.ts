@@ -10,6 +10,8 @@ const stores = [
     color: "#2F3136",
     name: "Reboot Studio",
     direction: "Carrer de Pujades, 100",
+    distance: 3,
+    schedule: "24 horas",
   },
   {
     id: "2",
@@ -18,6 +20,8 @@ const stores = [
     color: "#A3EAD8",
     name: "Cravy",
     direction: "Carrer de Pujades, 101",
+    distance: 3,
+    schedule: "24 horas",
   },
   {
     id: "3",
@@ -26,6 +30,8 @@ const stores = [
     color: "#E990BB",
     name: "Dribbble",
     direction: "Carrer de Pujades, 102",
+    distance: 3,
+    schedule: "24 horas",
   },
   {
     id: "4",
@@ -34,6 +40,7 @@ const stores = [
     color: "#EFD080",
     name: "Basecamp",
     direction: "Carrer de Pujades, 103",
+    schedule: "24 horas",
   },
   {
     id: "5",
@@ -42,6 +49,8 @@ const stores = [
     color: "#98AFE9",
     name: "Discord",
     direction: "Carrer de Pujades, 104",
+    distance: 3,
+    schedule: "24 horas",
   },
 ];
 export default class Store {
@@ -51,6 +60,8 @@ export default class Store {
   color: string;
   name: string;
   direction: string;
+  distance: number;
+  schedule: string;
 
   constructor(
     id: string,
@@ -58,7 +69,9 @@ export default class Store {
     longitude: number,
     color: string,
     name: string,
-    direction: string
+    direction: string,
+    distance: number,
+    schedule: string
   ) {
     this.id = id;
     this.latitude = latitude;
@@ -66,6 +79,8 @@ export default class Store {
     this.color = color;
     this.name = name;
     this.direction = direction;
+    this.distance = distance;
+    this.schedule = schedule;
   }
 
   static get(location: LocationObject): Store[] {
